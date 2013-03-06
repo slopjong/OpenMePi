@@ -6,29 +6,29 @@ With every new version some new wires or code got introduced. The more the proje
 Version 1
 --------------
 
-![od1.png](od1.png)
+![od1.jpg](od1.jpg)
 
 Version 2
 --------------
 
-![od2.png](od2.png)
+![od2.jpg](od2.jpg)
 
 Version 3
 --------------
 
-![od3.png](od3.png)
+![od3.jpg](od3.jpg)
 
 Version 4
 --------------
 
-![od4.png](od4.png)
+![od4.jpg](od4.jpg)
 
 Version 5
 --------------
 
-![od5.png](od5.png)
+![od5.jpg](od5.jpg)
 
 Version 6
 --------------
 
-![od6.png](od6.png)
+![od6.jpg](od6.jpg)
