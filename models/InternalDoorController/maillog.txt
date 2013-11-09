@@ -1,0 +1,30 @@
+Hallo Christoph,
+
+erstmal Danke dass du mich angesprochen hattest und dir auch Zeit genommen hast, dir das alte System anzuschauen. Ebenso fuer die interessante Diskussion.
+
+Du hast auf der PiJam kurz angesprochen, ob auch der Status einer bestimmten Tuer ausgelesen werden kann und habe mir meine Notiz nochmal angeschaut.
+
+Die Antwort lautet ja. Die Hauptsteuerung kann an den InternalDoorController einen StateRequest oder einen DoorsRequest senden. Siehe [0].
+Die Antwort auf den StateRequest enthaelt einen von aktuell vier verschiedenen Stati,
+
+* space open
+* nonspace open
+* internal door open
+* space and nonspace open
+
+Auf den DoorsRequest erfolgt eine Antwort mit einem Byte, welcher die Anzahl der internen Tueren kodiert, gefolgt von weiteren Bytes in denen mit einem 1 Bit pro Tuer der auf/zu-Status kodiert sind.
+
+Zur Frage der moeglichen Laenge von I2C-Leitungen kann ich erfreulicherweise mitteilen, dass diese mittel Bus-Puffern ausreichend gross dimensioniert werden kann.
+
+In [3] steht "400 kHz operation over at least 20 meters of wire". Alternativ gaebe es noch I2C-RS232-Adapter [2].
+
+Danke nochmal fuer das Brainstorming, ich haette heute sonst nicht mehr recherchiert.
+
+[0] https://raw.github.com/slopjong/OpenMePi/master/models/DSCN4038.JPG
+[1] http://www.jjmb.nl/datasheets/i2c/presentation_i2c.pdf
+[2] http://www.coptonix.com/_en/html/i2c-slave_rs232_ad.html
+[3] http://www.nxp.com/documents/data_sheet/P82B96.pdf
+
+
+Mit freundlichen Gruessen,
+Romain
