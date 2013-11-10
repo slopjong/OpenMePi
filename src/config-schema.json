@@ -1,0 +1,146 @@
+{
+    "description": "Configuration for the OpenMePi access control system.",
+    "comment": "This is a draft of the schema for the configuration file.",
+    "type": "object",
+    "properties": {
+        "FrontDoorController": {
+            "description": "Triggers the electronic front door lock and possibly returns a status if the door got really locked.",
+            "required": false,
+            "comment": "It could be that the entity doesn't use an electronic lock and thus this controller is optional.",
+            "type": "object",
+            "properties": {
+                "comm": {
+                    "description": "Configuration for the communication to be used between the hardware module and the Raspberry Pi.",
+                    "required": true,
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "$ref": "#/definitions/comm_enabled"
+                        },
+                        "channels": {
+                            "description": "Communication channels",
+                            "required": true,
+                            "type": "object",
+                            "properties": {
+                                "gui": {
+                                    "$ref": "#/definitions/gui_driver"
+                                },
+                                "gpio": {
+                                    "description": "Config of the pins to be used by the GPIO driver",
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "description": "Pin number for the lock status which is either 'open' or 'closed'.",
+                                            "type": "number"
+                                        },
+                                        "trigger": {
+                                            "description": "Pin number to trigger the lock.",
+                                            "type": "number"
+                                        }
+                                    }
+                                },
+                                "i2c": {
+                                    "$ref": "#/definitions/i2c_driver"
+                                },
+                                "freebus": {
+                                    "$ref": "#/definitions/freebus_driver"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "InternalDoorController": {
+            "description": "Moitors the internal doors.",
+            "required": false,
+            "comment": "It could be that the entity doesn't have to monitor internal doors and thus this controller is optional.",
+            "type": "object",
+            "properties": {
+                "comm": {
+                    "description": "Configuration for the communication to be used between the hardware module and the Raspberry Pi.",
+                    "required": true,
+                    "type": "object",
+                    "properties": {
+                        "enabled": { "$ref": "#/definitions/comm_enabled" },
+                        "channels": {
+                            "description": "Communication channels",
+                            "required": true,
+                            "type": "object",
+                            "properties": {
+                                "gui": { "$ref": "#/definitions/gui_driver" },
+                                "gpio": {
+                                    "description": "Config of the pins to be used by the GPIO driver",
+                                    "type": "object",
+                                    "properties": {
+                                        "space": {
+                                            "description": "Pin numbers of doors that belong to the space.",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "number"
+                                            }
+                                        },
+                                        "nonspace": {
+                                            "description": "Pin numbers of doors that belong to other associations in the same building.",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                },
+                                "i2c": {
+                                    "$ref": "#/definitions/i2c_driver"
+                                },
+                                "freebus": {
+                                    "$ref": "#/definitions/freebus_driver"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "comm_enabled": {
+            "description": "Communication channel to be used by the driver",
+            "required": true,
+            "type": "string",
+            "enum": ["gui", "gpio", "i2c", "freebus"]
+        },
+        "gui_driver": {
+            "description": "Config for the GUI driver",
+            "comment": "The GUI driver doesn't need any configuration as of now but this may change in the future",
+            "type": "object",
+            "properties": {
+
+            }
+        },
+        "i2c_driver": {
+            "description": "Config for the i2c driver.",
+            "type": "object",
+            "properties": {
+                "baudrate": {
+                    "description": "The communication speed. Different i2c drivers may use different speeds.",
+                    "type": "number"
+                },
+                "address": {
+                    "description": "The address of the hardware module.",
+                    "type": "number"
+                }
+            }
+        },
+        "freebus_driver": {
+            "description": "Config for the freebus driver",
+            "comment": "Unknown what configuration the freebus driver actually needs. We assume that at least an address is required.",
+            "type": "object",
+            "properties": {
+                "address": {
+                    "description": "The address of the hardware module.",
+                    "type": "number"
+                }
+            }
+        }
+    }
+}
